@@ -19,8 +19,19 @@ index.html            the site
 img/gallery/          42 photographs, plus thumbs/
 js/translations/      EN + SV strings
 tools/build-gallery.sh  rebuilds thumbs/ and stamps copyright metadata
+tools/check-links.js    resolves every local href, src and anchor
 brand/README.md       what is shared with the other two sites
 ```
+
+## Checking your work
+
+```sh
+node tools/check-links.js .
+```
+
+It cannot see paths built in JavaScript, and this site builds its gallery
+paths that way — so `GALLERY_IMAGES` in `js/main.js` still needs checking by
+eye against what is actually in `img/gallery/`.
 
 ## Adding a photograph
 
