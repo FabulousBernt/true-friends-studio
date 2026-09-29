@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <title data-i18n="meta.title">True Friends — Creative &amp; Technical Studio</title>
+    <meta name="description" content="True Friends is a creative and technical studio delivering visual design, user experience, testing and web development for ambitious projects." data-i18n-content="meta.description">
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self' https://formsubmit.co; img-src 'self' data:; form-action 'self' https://formsubmit.co; base-uri 'self'; object-src 'none';">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="robots" content="index,follow">
+
+    <link rel="icon" type="image/svg+xml" href="img/tf-pc-favicon.svg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap">
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css?v=2">
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Blocking on purpose: decides before first paint whether the
+         English markup is about to be translated. See the file. -->
+    <script src="js/lang-boot.js"></script>
+</head>
+<body>
+
+
+<svg class="tf-svg-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.86 3.38-1.86 3.61 0 4.27 2.38 4.27 5.47v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.11 20.45H3.56V9h3.55v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.21 24 24 23.23 24 22.28V1.72C24 .77 23.21 0 22.22 0z"/></symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.34 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.34 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.27 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.67 1.34 1.07 2.13 1.38.76.29 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.27 2.91-.56.79-.31 1.46-.72 2.13-1.38.67-.67 1.07-1.34 1.38-2.13.29-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.27-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63 19.1.34 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm6.41-10.4a1.44 1.44 0 100-2.88 1.44 1.44 0 000 2.88z"/></symbol>
+    <symbol id="icon-youtube" viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 00-2.1-2.12C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.48A3 3 0 00.5 6.2 31.3 31.3 0 000 12a31.3 31.3 0 00.5 5.8 3 3 0 002.1 2.12C4.4 20.4 12 20.4 12 20.4s7.6 0 9.4-.48a3 3 0 002.1-2.12A31.3 31.3 0 0024 12a31.3 31.3 0 00-.5-5.8zM9.6 15.6V8.4l6.24 3.6-6.24 3.6z"/></symbol>
+  </defs>
+</svg>
+<a href="#main" class="sr-only" data-i18n="aria.skip">Skip to content</a>
+
+<header class="nav" id="site-nav" data-open="false">
+    <div class="nav__inner">
+        <div class="nav__crumbs">
+            <a href="https://truefriends.se/" class="nav__brand" aria-label="True Friends home" data-i18n-aria-label="aria.home">
+                <img class="nav__brand-logo" src="img/tf-pc-logo-transparent.svg" alt=""
+                     width="1955" height="1491" decoding="async">
+                <img class="nav__brand-logo nav__brand-logo--hover" src="img/tf-pc-logo-yellow-transparent.svg" alt=""
+                     width="1955" height="1491" decoding="async" aria-hidden="true">
+            </a>
+            <span class="nav__crumb-sep" aria-hidden="true">/</span>
+            <span class="nav__crumb-current" data-i18n="hero.studio" aria-current="page">Studio</span>
+        </div>
+
+        <nav class="nav__links" aria-label="Primary" data-i18n-aria-label="aria.primary">
+            <a class="nav__link" href="#top" data-i18n="nav.start">Start</a>
+            <a class="nav__link" href="#about" data-i18n="nav.about">About</a>
+            <a class="nav__link" href="#services" data-i18n="nav.services">Services</a>
+            <a class="nav__link" href="#gallery" data-i18n="nav.gallery">Gallery</a>
+            <a class="nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <div class="nav__right">
+            <a class="nav__era" href="https://truefriends.se/1996/"><span data-i18n="era.classic">TF 1996</span> <span class="nav__era-tail" data-i18n="era.classicTail">website</span></a>
+
+            <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
+                <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+                </a>
+                <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                </a>
+                <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
+                </a>
+            </div>
+
+
+            <div class="nav__langs" role="group" aria-label="Switch language" data-i18n-aria-label="aria.langSwitch">
+                <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
+                <span class="nav__lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="nav__lang" data-lang="sv" aria-pressed="false">SV</button>
+            </div>
+
+            <button class="nav__toggle" aria-label="Toggle navigation menu" aria-controls="mobile-drawer" aria-expanded="false" data-i18n-aria-label="aria.mobileMenu">
+                <span class="icon-bar" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="nav__drawer" id="mobile-drawer">
+        <a class="nav__link" href="#top" data-i18n="nav.start">Start</a>
+        <a class="nav__link" href="#about" data-i18n="nav.about">About</a>
+        <a class="nav__link" href="#services" data-i18n="nav.services">Services</a>
+        <a class="nav__link" href="#gallery" data-i18n="nav.gallery">Gallery</a>
+        <a class="nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
+        <div class="nav__langs nav__langs--drawer" role="group" aria-label="Switch language">
+            <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
+            <span class="nav__lang-divider" aria-hidden="true">/</span>
+            <button type="button" class="nav__lang" data-lang="sv" aria-pressed="false">SV</button>
+        </div>
+        <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
+            <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+            </a>
+            <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
+            </a>
+            <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
+            </a>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+    <section class="hero hero--brand hero--studio" id="top">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="hero__photo" aria-hidden="true"></div>
+        <div class="hero__scrim" aria-hidden="true"></div>
+
+        <div class="container hero__brand">
+            <h1 class="hero__mark hero__mark--section">
+                <img src="img/tf-archivo-studio-yellow-transparent.svg"
+                     alt="Studio" data-i18n-alt="hero.studio"
+                     width="2030" height="484" decoding="async">
+            </h1>
+
+            <p class="hero__lede" data-i18n="hero.lede.studio"></p>
+
+            <div class="hero__cta">
+                <button type="button" class="btn" data-modal-open="contact-modal" data-i18n="hero.cta">Say hi</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="about-label" data-i18n="about.label">About</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                    <p class="lede" data-i18n-html="about.ledeHTML">Here at True Friends, we deliver both a <span class="accent">creative</span> vision and <span class="accent">technical</span> expertise to every project and role we take on.</p>
+                    <p data-i18n="about.body1">We have a long experience in web development, photography, video production and design. Working with companies, organisations, bands and individuals in numerous areas.</p>
+                    <p data-i18n="about.body2">Our vision is to be a close and genuine partner, a true friend to you as a customer, helping your projects, visions, and business forward with high quality and dedication. To achieve this, we focus on gaining a deep understanding of your work, goals, audience, and challenges.</p>
+                    <p data-i18n="about.body3">True Friends rests on a foundation of honesty, creativity, responsibility, and commitment. These pillars are essential for our work and our shared success.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="services-label" data-i18n="services.label">Services</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                    <ul class="service-list" role="list">
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/web-development.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.webDev.name">Web Production</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.webDev.body">We deliver high-end websites and web applications tailored to your needs. We follow international standards in accessibility, usability and security, and make every decision based on the context of your business needs.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/graphic-design.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.graphicDesign.name">Graphic Design</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.graphicDesign.body">Using visual design principles and design thinking processes we create graphical profiles, logotypes, posters, clothing and other digital and printable media.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/market-communication.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.market.name">Market communication</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.market.body">We help with brand identity, campaign strategy and content that connects your business to the world across digital and printable medias.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/photography.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.photo.name">Photography</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.photo.body">Our photography services ranges from portraits, products, landscapes, real estate, food &amp; drinks, weddings, concerts, sports and other events.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/video-production.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.video.name">Video &amp; Production</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.video.body">A complete video production solution. From analysing your needs to concept, script writing, filming and editing. Whether it’s simpler productions for web and social media to more advanced commercials, we take care of the entire process, from idea to finished video.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li>
+                            <details class="service-line">
+                                <summary class="service-line__summary">
+                                    <img class="service-line__icon" src="img/icons/editing-retouch.svg" alt="" width="32" height="32">
+                                    <span class="service-line__name" data-i18n="services.items.editing.name">Editing &amp; Retouch</span>
+                                    <span class="service-line__toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="service-line__body">
+                                    <p data-i18n="services.items.editing.body">We provide professional post-production for photo and video to ensure everything looks as intended, from colour and lighting adjustments to detailed retouch.</p>
+                                </div>
+                            </details>
+                        </li>
+                    </ul>
+                    <p class="services__note" data-i18n-html="services.note">Our media services are available to both businesses and private individuals. We also collaborate with various partners for larger and more complex projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gallery" aria-labelledby="gallery-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="gallery-label" data-i18n="gallery.label">Gallery</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                    <div class="gallery gallery-listing">
+                        <!-- Rows rendered from window.GALLERY_IMAGES (see js/main.js). -->
+                        <ol class="gallery-listing__rows gallery__grid" role="list"></ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-label">
+        <div class="container">
+            <div class="section__terminal">
+                <div class="section__terminal-chrome">
+                    <span class="section__terminal-title" id="contact-label" data-i18n="contact.label">Contact</span>
+                </div>
+                <div class="section__terminal-body">
+                    <div class="section__body">
+                    <div class="contact__head">
+                        <p class="lede" data-i18n="contact.lede">Find us on our social media channels, reach out via email or send a message through the form below.</p>
+                    </div>
+
+                    <div class="contact__grid">
+                        <form class="form" id="contact-form" novalidate
+                              data-endpoint="https://formsubmit.co/ajax/hello@truefriends.se"
+                              aria-describedby="form-status">
+                            <div class="form__row">
+                                <label class="field">
+                                    <span class="sr-only" data-i18n="aria.firstName">First name</span>
+                                    <input class="field__input" type="text" name="firstName" placeholder="first name" data-i18n-placeholder="contact.placeholders.firstName" autocomplete="given-name" maxlength="50" required>
+                                </label>
+                                <label class="field">
+                                    <span class="sr-only" data-i18n="aria.lastName">Last name</span>
+                                    <input class="field__input" type="text" name="lastName" placeholder="last name" data-i18n-placeholder="contact.placeholders.lastName" autocomplete="family-name" maxlength="50" required>
+                                </label>
+                            </div>
+                            <label class="field">
+                                <span class="sr-only" data-i18n="aria.email">Email</span>
+                                <input class="field__input" type="email" name="email" placeholder="email" data-i18n-placeholder="contact.placeholders.email" autocomplete="email" maxlength="254" required>
+                            </label>
+                            <label class="field">
+                                <span class="sr-only" data-i18n="aria.message">Message</span>
+                                <textarea class="field__textarea" name="message" placeholder="message" data-i18n-placeholder="contact.placeholders.message" maxlength="2000" required></textarea>
+                            </label>
+                            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot">
+                            <input type="hidden" name="_captcha" value="true">
+                            <input type="hidden" name="_template" value="table">
+                            <div class="form__actions">
+                                <button class="btn" type="submit" data-i18n="contact.submit">Send</button>
+                            </div>
+                            <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+                        </form>
+
+                        <aside class="contact__side" aria-label="Other ways to reach us" data-i18n-aria-label="contact.otherWays">
+                            <div class="socials-row" role="list">
+                                <a role="listitem" class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
+                                </a>
+                                <a role="listitem" class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                                </a>
+                                <a role="listitem" class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
+                                </a>
+                            </div>
+                            <address class="address-row">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
+                                <span>
+                                    <span>Lugngatan 15C</span>
+                                    <span>59160 Motala, Sweden</span>
+                                </span>
+                            </address>
+                            <a class="email-row" href="tel:+46705424677">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+                                <span>+46 705 424 677</span>
+                            </a>
+                            <a class="email-row" href="mailto:hello@truefriends.se">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                                <span>hello@truefriends.se</span>
+                            </a>
+                        </aside>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p class="site-footer__copyright" data-i18n="footer.copyright">&copy; 2026 True Friends. All rights reserved.</p>
+</footer>
+
+<button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" data-i18n-aria-label="aria.backToTop" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 15 12 9 18 15"/>
+    </svg>
+</button>
+
+<dialog class="modal" id="contact-modal" aria-labelledby="modal-title">
+    <div class="modal__inner">
+        <div class="modal__heading">
+            <h2 class="modal__title" id="modal-title" data-i18n="modal.title">Say hi!</h2>
+            <p class="modal__desc" data-i18n="modal.desc">Please fill out the contact form and we will get back to you as soon as we can.</p>
+        </div>
+
+        <form class="modal__form" id="modal-contact-form" novalidate
+              data-endpoint="https://formsubmit.co/ajax/hello@truefriends.se"
+              aria-describedby="modal-form-status">
+            <div class="form__row">
+                <label class="field">
+                    <span class="sr-only" data-i18n="aria.firstName">First name</span>
+                    <input class="field__input" type="text" name="firstName" placeholder="first name" data-i18n-placeholder="contact.placeholders.firstName" autocomplete="given-name" maxlength="50" required>
+                </label>
+                <label class="field">
+                    <span class="sr-only" data-i18n="aria.lastName">Last name</span>
+                    <input class="field__input" type="text" name="lastName" placeholder="last name" data-i18n-placeholder="contact.placeholders.lastName" autocomplete="family-name" maxlength="50" required>
+                </label>
+            </div>
+            <label class="field">
+                <span class="sr-only" data-i18n="aria.email">Email</span>
+                <input class="field__input" type="email" name="email" placeholder="email" data-i18n-placeholder="contact.placeholders.email" autocomplete="email" maxlength="254" required>
+            </label>
+            <label class="field">
+                <span class="sr-only" data-i18n="aria.message">Message</span>
+                <textarea class="field__textarea" name="message" placeholder="message" data-i18n-placeholder="contact.placeholders.message" maxlength="2000" required></textarea>
+            </label>
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot">
+            <input type="hidden" name="_captcha" value="true">
+            <input type="hidden" name="_template" value="table">
+            <div class="modal__actions">
+                <button type="button" class="btn btn--outline" data-modal-close data-i18n="modal.close">Close</button>
+                <button type="submit" class="btn" data-i18n="modal.send">Send</button>
+            </div>
+            <p class="form__status" id="modal-form-status" role="status" aria-live="polite"></p>
+        </form>
+    </div>
+</dialog>
+
+<dialog class="lightbox" id="gallery-lightbox" aria-label="Photo gallery" data-i18n-aria-label="aria.lightbox">
+    <div class="lightbox__inner">
+        <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close" data-i18n-aria-label="aria.closeLightbox">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        <div class="lightbox__stage">
+            <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous" data-i18n-aria-label="aria.prevPhoto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
+            </button>
+            <img class="lightbox__image" alt="">
+            <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next" data-i18n-aria-label="aria.nextPhoto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
+            <p class="lightbox__caption" aria-live="polite"></p>
+        </div>
+
+        <ol class="lightbox__thumbs" role="list" data-lightbox-thumbs></ol>
+    </div>
+</dialog>
+
+<script src="js/translations/common.js" defer></script>
+<script src="js/translations/studio.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
