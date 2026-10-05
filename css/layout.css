@@ -137,7 +137,7 @@ body.landing .hero__content {
    left/right zero padding as `.hero--brand`. */
 .hero--blog {
   min-height: auto;
-  padding: clamp(8rem, 14vw, 12rem) 0 clamp(6rem, 12vw, 10rem);
+  padding: calc(clamp(8rem, 14vw, 12rem) + var(--hero-top-air)) 0 clamp(6rem, 12vw, 10rem);
   align-items: stretch;
 }
 
@@ -741,7 +741,13 @@ body:has(.hero--blog) {
   text-align: center;
   min-height: auto;
   align-items: center;
-  padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+  /* --hero-top-air is the space the leaky icon sprite used to occupy above
+     the nav, now that `.tf-svg-sprite` collapses it. Folding it in here
+     keeps the page name exactly where it has always sat relative to the top
+     of the window while the band above the nav goes away — the air was
+     doing the nav's clearance job either way, it was just being spent in the
+     wrong place, before the nav rather than after it. */
+  padding: calc(clamp(8rem, 14vw, 12rem) + var(--hero-top-air)) 0 clamp(4rem, 8vw, 6rem);
 }
 
 /* The landing is the odd one out: it IS the page, so it has to fit the
@@ -773,6 +779,33 @@ body.landing .hero--brand {
   flex-direction: column;
   align-items: center;
   gap: 0;
+}
+
+/* TRUE FRIENDS, the brand line the page name hangs under. Untranslated: it is
+   a proper noun and reads the same in both languages, so it is markup rather
+   than a translation key.
+
+   Set in type, not as another artwork file: the hero already spends two
+   image requests on the mark and its flame, and the brand name does not need
+   the logo's own face to read as the brand.
+
+   0.5em of letter-spacing is not an arbitrary "large" — Modern DOS 8x16 sets
+   every glyph on a 0.5em advance, so 0.5em of tracking is precisely one
+   character cell. It doubles the gap between letters and keeps every glyph on
+   the same pixel grid at any size; a rounder 0.35em would be 0.7 of a cell and
+   would stagger the columns, which shows as uneven spacing at small sizes.
+
+   font-size is capped by the same reasoning the mark's height clamp is: the
+   line never outgrows the STUDIO artwork it sits above. It is the tightest
+   step on the rhythm scale, one --rhythm below the page name. */
+.hero__eyebrow {
+  margin: 0 0 var(--rhythm);
+  margin-right: -0.5em;
+  font-size: clamp(0.75rem, calc(6.6vw - 0.165rem), 1.848rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.5em;
+  color: var(--color-text-strong);
 }
 
 /* The mark. drop-shadow follows the glyph outline rather than the box, so
@@ -849,8 +882,9 @@ body.landing .hero--brand {
 /* Consulting and studio: the page name IS the hero. It used to sit under a
    small True Friends wordmark, which put the loudest treatment on the
    smallest element and left the title flat — the hierarchy read backwards.
-   The wordmark is gone (the nav mark, the <title> and the footer all still
-   carry the name) and the flame moved up onto the page name, so the biggest
+   The drawn wordmark is gone — the brand line above the title is now type,
+   set quiet by .hero__eyebrow so it names the brand without competing with the
+   page name — and the flame moved up onto the page name, so the biggest
    thing on the page is also the boldest. The landing keeps the full
    monogram-over-wordmark lockup; that is where the brand introduces itself.
 

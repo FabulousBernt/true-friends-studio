@@ -68,13 +68,6 @@ window.TF_TRANSLATIONS = {
     footer: {
       copyright: "© {year} True Friends. All rights reserved.",
     },
-    /* The nav button across to the 1996 build under /1996/. The label is
-       split so the tail can drop on a narrow screen without leaving the
-       Swedish phrase hyphenated. */
-    era: {
-      classic: "TF 1996",
-      classicTail: "website",
-    },
     team: {
       members: {
         johnny: { name: "Johnny Vigersten" },
@@ -154,10 +147,6 @@ window.TF_TRANSLATIONS = {
     },
     footer: {
       copyright: "© {year} True Friends. All rights reserved.",
-    },
-    era: {
-      classic: "TF 1996",
-      classicTail: "webbplats",
     },
     team: {
       members: {

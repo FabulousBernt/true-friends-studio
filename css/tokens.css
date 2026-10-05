@@ -87,6 +87,12 @@
   --container-padding: clamp(1.25rem, 4vw, 2.5rem);
   --section-gap: clamp(5rem, 10vw, 7.5rem);
   --nav-height: 72px;
+  /* Extra air above the brand hero's content, on top of its own padding-top.
+     The 150px the icon sprite used to leak above the nav, reassigned to the
+     hero so collapsing the sprite does not move the page name. Flat rather
+     than viewport-scaled: the sprite's leak was a fixed layout accident, and
+     preserving it exactly is the whole point. */
+  --hero-top-air: 150px;
 
   /* ---------- Radii ---------- */
 
