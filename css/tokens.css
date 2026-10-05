@@ -1,100 +1,72 @@
 /*
- * True Friends — Design Tokens
- * Source of truth for colors, typography, spacing, radii, motion.
- * Derived from True Friend Website File in Figma + brand logo (#FEE440).
+ * True Friends — design tokens.
+ *
+ * Every value the rest of the stylesheet is allowed to name lives here. If a
+ * colour or a size appears twice in a rule file it is either a one-off or a
+ * mistake; the recurring ones are below.
  */
 
 :root {
-  /* ---------- Color ---------- */
+  /* ---------- Colour ----------
+     One family of neutrals on ink, one accent, one hot note. Measured
+     contrast is in the README — the short version is that yellow and flame
+     both work as text on this ground and neither works on a light one. */
   --color-bg: #0a0a0a;
-  --color-surface: rgba(255, 255, 255, 0.04);
-  --color-surface-hover: rgba(255, 255, 255, 0.07);
+  --color-surface: rgb(255 255 255 / 4%);
+  --color-surface-hover: rgb(255 255 255 / 7%);
 
-  --color-border-subtle: rgba(204, 213, 225, 0.10);
-  --color-border: rgba(204, 213, 225, 0.18);
-  --color-border-strong: rgba(204, 213, 225, 0.35);
-  --color-border-input: rgba(204, 213, 225, 0.22);
+  --color-border: rgb(204 213 225 / 18%);
+  --color-border-strong: rgb(204 213 225 / 35%);
+  --color-border-input: rgb(204 213 225 / 22%);
 
   --color-text: #e8e6dc;
   --color-text-strong: #ffffff;
-  --color-text-muted: rgba(232, 230, 220, 0.65);
-  --color-text-subtle: rgba(232, 230, 220, 0.45);
+  --color-text-muted: rgb(232 230 220 / 65%);
+  --color-text-subtle: rgb(232 230 220 / 45%);
 
   --color-cream: #faf9f5;
-  --color-nav-fg: var(--color-cream);
-  --color-nav-fg-hover: #fee440;
+  --color-error: #ff7676;
 
   --color-accent: #fee440;
-  /* Flame red — the one hot note against the yellow/black ground. Rare by
-     design: button press, the stamped sticker, nothing else. */
-  --color-flame: #ff3b1f;
   --color-accent-pressed: #e6cf3a;
-  --color-accent-ink: #0a0a0a;
+  /* Flame red: the one hot note against the yellow, used only as the offset
+     behind the hero mark. */
+  --color-flame: #ff3b1f;
 
-  --color-focus-ring: #fee440;
-
-  /* Frosted-glass surface used for the nav and the section chrome boxes
-     — a semi-transparent dark tint under a subtle warm-white
-     highlight. Combined with --blur-glass below they read as one
-     consistent chrome. */
-  --color-glass-tint: rgba(10, 10, 10, 0.5);
-  --color-glass-highlight: rgba(255, 255, 255, 0.03);
-
-  /* Backdrop filter applied to every glass surface. */
+  /* Frosted-glass chrome, shared by the nav and the section panels so the
+     two read as one material. */
+  --color-glass-tint: rgb(10 10 10 / 50%);
+  --color-glass-highlight: rgb(255 255 255 / 3%);
   --blur-glass: blur(6px) saturate(120%);
 
-  /* Fallback gradient shown behind the hero photo. */
+  /* Behind the hero photo, visible at its edges and while it decodes. */
   --gradient-hero:
-    radial-gradient(ellipse 80% 60% at 70% 65%, rgba(255, 140, 60, 0.35), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 20% 30%, rgba(20, 25, 50, 0.85), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 70% 65%, rgb(255 140 60 / 35%), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 20% 30%, rgb(20 25 50 / 85%), transparent 70%),
     linear-gradient(180deg, #0a0a0a 0%, #1a1208 55%, #0a0a0a 100%);
 
-  /* ---------- Typography ---------- */
-  /* One voice. JetBrains Mono sets everything that is live text — headings,
-     body, nav, buttons, labels. Archivo used to take the display half, on
-     the argument that a heavy condensed sans against a monospace body is
-     the technical-documentation pairing. What retired it was the brand
-     heroes: once each page opened on a drawn mark, the display drama moved
-     to artwork and Archivo was left setting h2s, nav links and buttons —
-     small sizes where its 900 weight and 88% width axis read as nothing
-     more than a bold sans, while still costing its entire weight-and-width
-     variable payload.
-
-     The two tokens are kept separate and identical rather than collapsed
-     into one. They name roles, not files, so the display half can be
-     re-pointed at a second face later without touching a rule.
-
-     Headings take their authority from weight, size, case and tracking
-     instead of from a second family. That works here because the mark above
-     them is already doing the shouting. */
-  --font-display: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
-  --font-body: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
+  /* ---------- Type ----------
+     One voice. JetBrains Mono sets everything; the display half of the type
+     system was retired with Archivo, and headings take their authority from
+     weight, size and tracking instead. */
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Menlo", "Consolas", monospace;
   --fs-body: 1rem;
   --fs-small: 0.875rem;
-  /* Small caps have no ascenders or descenders to set a rhythm, so they are
-     opened up. There is no matching display value: --tracking-display was
-     -0.04em to pull in Archivo's generous sidebearings, and a monospace face
-     has a fixed advance width that negative tracking only crowds. */
-  --tracking-label: 0.03em;
-
   --fs-caption: 0.75rem;
-
+  /* Caps have no ascenders or descenders to set a rhythm, so labels are
+     opened up slightly. */
+  --tracking-label: 0.03em;
   --lh-snug: 1.2;
   --lh-relaxed: 1.65;
 
-  /* ---------- Layout / spacing ---------- */
+  /* ---------- Layout ---------- */
   --container-max: 1000px;
   --container-padding: clamp(1.25rem, 4vw, 2.5rem);
   --section-gap: clamp(5rem, 10vw, 7.5rem);
   --nav-height: 72px;
-  /* Extra air above the brand hero's content, on top of its own padding-top.
-     The 150px the icon sprite used to leak above the nav, reassigned to the
-     hero so collapsing the sprite does not move the page name. Flat rather
-     than viewport-scaled: the sprite's leak was a fixed layout accident, and
-     preserving it exactly is the whole point. */
+  /* Clearance the fixed nav needs above the page name. Flat rather than
+     viewport-scaled: it is one fixed bar, not a proportion of the window. */
   --hero-top-air: 150px;
-
-  /* ---------- Radii ---------- */
 
   /* ---------- Motion ---------- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

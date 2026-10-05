@@ -2,28 +2,34 @@
 # Build img/gallery/thumbs/ from the full-size photos, then stamp both the
 # full-size files and the thumbnails with copyright metadata.
 #
-# The Studio gallery shows square tiles of roughly 104-140px and the Image
-# Viewer's filmstrip shows 50px ones, so a 400px square covers both at 2x
-# retina. The crop is centred, matching the `object-fit: cover` the CSS would
-# apply anyway.
+# The gallery tiles are about 145px squares, so a 320px thumbnail covers them
+# at 2x retina with a little to spare — and the same file serves the lightbox
+# strip, whose thumbnails are 64px. That is half the pixels of the 400px set
+# this replaced, which matters because all 42 land on a first visit.
+#
+# q72 rather than q80: at 320px the difference is not visible on screen and
+# takes another 130KB off the gallery.
 #
 # cwebp discards metadata on encode, so stamping always comes last. Both
 # steps are idempotent — re-running replaces what is there.
 #
-# Run after adding, removing or reordering photos:
+# Run after adding or removing photos:
 #   bash tools/build-gallery.sh
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 SRC="img/gallery"
 OUT="$SRC/thumbs"
-SIZE=400
+SIZE=320
+QUALITY=72
 
 CREATOR="Johnny Vigersten"
 NOTICE="© Johnny Vigersten - True Friends Group"
 
-for bin in cwebp webpmux python3; do
-  command -v "$bin" >/dev/null || { echo "$bin not found (brew install webp)"; exit 1; }
+# sips is macOS only; there is no equivalent in the libwebp tools for reading
+# the dimensions off a webp.
+for bin in cwebp webpmux sips python3; do
+  command -v "$bin" >/dev/null || { echo "$bin not found (brew install webp)" >&2; exit 1; }
 done
 mkdir -p "$OUT"
 
@@ -42,7 +48,7 @@ for f in "$SRC"/[0-9][0-9].webp; do
   s=$(( w < h ? w : h ))                 # centre square
   x=$(( (w - s) / 2 ))
   y=$(( (h - s) / 2 ))
-  cwebp -q 80 -m 6 -quiet \
+  cwebp -q "$QUALITY" -m 6 -quiet \
         -crop "$x" "$y" "$s" "$s" -resize "$SIZE" "$SIZE" \
         "$f" -o "$OUT/$name"
   n=$(( n + 1 ))

@@ -1,0 +1,981 @@
+/* True Friends — layout and components.
+ *
+ * One file, in the order a reader meets it: page frame, hero, the three
+ * content sections, footer, then the reusable parts (buttons, fields, nav,
+ * dialogs). Mobile-first; media queries widen. */
+
+/* ---------- Page frame ---------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-padding);
+}
+
+.section {
+  padding: var(--section-gap) 0;
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+/* Sections read as one continuous document, so only the first gets the
+   full gap above it. */
+.section + .section { padding-top: 0; }
+
+.section__body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Links inside a section body go yellow on hover. `.btn` is excluded so
+   buttons keep their own treatment. */
+.section__body a:not(.btn):hover,
+.section__body a:not(.btn):focus-visible {
+  color: var(--color-accent);
+}
+
+/* The section panels are the last of the terminal look and are kept on
+   purpose: a labelled bar and no traffic lights, so they read as structure
+   rather than costume. The class names still say `terminal`. */
+.section__terminal {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-glass-tint);
+  border: 1px solid var(--color-border);
+  backdrop-filter: var(--blur-glass);
+}
+
+.section__terminal-chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+  padding: 0.5rem 0.875rem;
+  background: var(--color-glass-highlight);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section__terminal-title {
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.section__terminal-body {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  --hero-photo-url: url("../img/studio-hero-bg.webp");
+}
+
+/* The photo runs off the bottom of the window, so the hero carries its own
+   clearance above the fixed nav instead of the base padding. */
+.hero--brand {
+  text-align: center;
+  padding: calc(clamp(8rem, 14vw, 12rem) + var(--hero-top-air)) 0 clamp(4rem, 8vw, 6rem);
+}
+
+.hero__bg,
+.hero__photo,
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero__bg {
+  z-index: -2;
+  background-image: var(--gradient-hero);
+}
+
+.hero__photo {
+  z-index: -1;
+  background-image: var(--hero-photo-url, none);
+}
+
+.hero__scrim {
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 55% 60% at 50% 55%, rgb(10 10 10 / 70%) 0%, transparent 70%),
+    linear-gradient(180deg, rgb(10 10 10 / 40%) 0%, rgb(10 10 10 / 10%) 35%, rgb(10 10 10 / 60%) 100%);
+}
+
+.hero--studio .hero__scrim {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 48%, rgb(10 10 10 / 72%) 0%, transparent 75%),
+    linear-gradient(180deg, rgb(10 10 10 / 45%) 0%, rgb(10 10 10 / 20%) 35%, rgb(10 10 10 / 60%) 100%);
+}
+
+/* The backdrop is promoted to fixed positioning so the photo reads as one
+   continuous image behind the fixed nav, the hero and every section below.
+   That needs a stacking context on <body> for the negative z-indices to land
+   between body's background and the flow — and .hero must NOT create one of
+   its own, or it traps the photo and paints it over the sections. */
+body:has(.hero--brand) { isolation: isolate; }
+
+.hero--brand .hero__bg,
+.hero--brand .hero__photo,
+.hero--brand .hero__scrim {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero--brand .hero__photo {
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+body:has(dialog[open]) { overflow: hidden; }
+
+/* Vertical rhythm. One variable drives every gap, on a scale of ratio 1.618,
+   so the spacing states the relationships: eyebrow to page name is one lockup
+   (1.000, the tightest step), the lede explains the title (1.618), and the
+   gap below the lede is where reading ends and acting begins (2.618). A
+   single even gap made the lede look as attached to the button as to the
+   title above it — proximity was encoding nothing. */
+.hero__brand {
+  --rhythm: clamp(0.75rem, 1.4vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TRUE FRIENDS, the brand line the page name hangs under. Untranslated: a
+   proper noun reads the same in both languages, so it is markup rather than
+   a translation key.
+
+   0.5em of tracking is exactly one character cell — Modern DOS 8x16 puts
+   every glyph on a 0.5em advance — which doubles the gap between letters and
+   keeps the glyphs on one pixel grid at any size. A rounder 0.35em is 0.7 of
+   a cell and staggers the columns, which shows as uneven spacing when small.
+   The negative right margin takes back the trailing cell, so the line stays
+   optically centred under the mark. */
+.hero__eyebrow {
+  margin: 0 0 var(--rhythm);
+  margin-right: -0.5em;
+  font-size: clamp(0.75rem, calc(6.6vw - 0.165rem), 1.848rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.5em;
+  color: var(--color-text-strong);
+}
+
+/* The page name IS the hero, so it is sized by height rather than width:
+   the word changes length between languages, and height-sizing holds one cap
+   height while letting each word run as long as it runs. max-width and
+   object-fit are insurance — if the width ever clamps, contain letterboxes
+   the artwork rather than stretching the letterforms.
+
+   The flame offset stands in for the misregistration of a cheap two-colour
+   screen print. drop-shadow follows the glyph outline rather than the box, so
+   it hugs the letterforms; a second tight black shadow stops the red
+   vibrating against the yellow. Offsets are viewport-scaled px, not em: this
+   is an <h1>, and an em offset would key off the inherited heading size
+   rather than the artwork. */
+.hero__mark {
+  --mark-offset: clamp(2px, 0.4vw, 5px);
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__mark img {
+  width: auto;
+  height: clamp(2.25rem, 9vw, 7rem);
+  max-width: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(var(--mark-offset) var(--mark-offset) 0 var(--color-flame))
+    drop-shadow(1px 1px 0 rgb(10 10 10 / 55%));
+}
+
+.hero__lede {
+  max-width: 60ch;
+  margin: calc(var(--rhythm) * 1.618) 0 0;
+  font-size: clamp(0.9375rem, 1.15vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--color-cream);
+  text-wrap: balance;
+}
+
+.hero--brand .hero__cta {
+  margin-top: calc(var(--rhythm) * 2.618);
+}
+
+/* Short windows: open the vertical gaps a step, since the stack is content
+   driven and there is no height to fill. */
+@media (max-height: 700px) {
+  .hero__brand { gap: clamp(1rem, 2.5vw, 1.5rem); }
+}
+
+/* ---------- Services ---------- */
+
+/* Each service is an expandable row, `[+] name`, revealing body copy aligned
+   to the name column. Native <details>, so no JS. */
+.service-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-list > li + li {
+  border-top: 1px solid var(--color-border);
+}
+
+.service-line {
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.service-line__summary {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 0.25rem;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.service-line__summary::-webkit-details-marker { display: none; }
+.service-line__summary::marker { content: ""; }
+
+.service-line__summary:hover {
+  background: var(--color-glass-highlight);
+}
+
+.service-line__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.service-line__name {
+  color: var(--color-cream);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: var(--lh-snug);
+}
+
+.service-line__toggle {
+  justify-self: end;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.service-line__toggle::before { content: "[+]"; }
+.service-line[open] > .service-line__summary .service-line__toggle::before { content: "[-]"; }
+
+.service-line__body {
+  padding: 0.25rem 0.25rem 1rem calc(24px + 0.75rem + 0.25rem);
+  color: var(--color-text);
+}
+
+.services__note {
+  margin-top: 0.5rem;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Gallery ---------- */
+
+/* The gallery as directory-listing output: a dense grid of square
+   thumbnails, no filenames, the whole run on screen at once. The rows are
+   built by js/main.js from GALLERY_IMAGES. */
+.gallery-listing {
+  font-size: clamp(0.9375rem, 1.05vw, 1rem);
+  color: var(--color-text);
+}
+
+.gallery-listing__rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+/* The tile is the thumbnail alone. The placeholder background is what shows
+   through if a file is missing and js/main.js hides the broken image. */
+.gallery-listing .gallery__tile {
+  display: block;
+  width: 100%;
+  background: var(--color-surface) url("../img/gallery/placeholder.svg") center / 28px no-repeat;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.gallery-listing .gallery__tile:hover,
+.gallery-listing .gallery__tile:focus-visible {
+  opacity: 0.75;
+  outline: none;
+}
+
+.gallery-listing .gallery__tile:focus-visible img {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.gallery-listing .gallery__tile img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* ---------- Contact ---------- */
+
+.contact__head { margin-bottom: 0.5rem; }
+
+.contact__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  margin-top: 1rem;
+}
+
+.contact__side {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.email-row,
+.address-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--color-text-strong);
+  font-weight: 500;
+}
+
+.address-row { align-items: flex-start; font-style: normal; }
+
+.email-row svg,
+.address-row svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.address-row svg { margin-top: 0.125rem; }
+
+.address-row > span { display: flex; flex-direction: column; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  margin-top: 0;
+  padding: 1rem var(--container-padding);
+  text-align: center;
+}
+
+.site-footer__copyright {
+  font-size: var(--fs-caption);
+  color: var(--color-text-subtle);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  --btn-bg: var(--color-accent);
+  --btn-fg: var(--color-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 48px;
+  padding: 0 1.25rem;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.btn:hover { --btn-bg: var(--color-cream); }
+.btn:active { --btn-bg: var(--color-accent-pressed); transform: translateY(1px); }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--outline {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-cream);
+  border: 2px solid var(--color-cream);
+}
+
+.btn--outline:hover {
+  --btn-bg: var(--color-cream);
+  --btn-fg: var(--color-bg);
+}
+
+/* ---------- Fields and forms ---------- */
+
+.field {
+  position: relative;
+  display: block;
+}
+
+.field__input,
+.field__textarea {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  background: transparent;
+  color: var(--color-text-strong);
+  border: 1px solid var(--color-border-input);
+  font-size: var(--fs-body);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.field__textarea {
+  height: 109px;
+  min-height: 96px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.field__input::placeholder,
+.field__textarea::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.field__input:hover,
+.field__textarea:hover {
+  border-color: var(--color-border-strong);
+}
+
+.field__input:focus,
+.field__textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: rgb(254 228 64 / 4%);
+}
+
+.field__input:invalid:not(:placeholder-shown),
+.field__textarea:invalid:not(:placeholder-shown) {
+  border-color: var(--color-error);
+}
+
+.form,
+.modal__form {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+
+.form { max-width: 384px; }
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form__status {
+  font-size: var(--fs-small);
+  min-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.form__status:empty { display: none; }
+.form__status[data-state="success"] { color: var(--color-accent); }
+.form__status[data-state="error"] { color: var(--color-error); }
+
+/* The contact form's submit spans the form, the way the modal's pair spans
+   the dialog: one action leaves the row undivided, two actions split it in
+   half. Either way the buttons fill their row rather than stranding one
+   against an edge. */
+.form__actions,
+.modal__actions {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+
+.form__actions .btn,
+.modal__actions .btn {
+  flex: 1;
+  padding: 0;
+}
+
+.modal__actions { margin-top: 2px; }
+
+@media (max-width: 540px) {
+  .form__row { grid-template-columns: 1fr; }
+  .modal__actions { flex-direction: column-reverse; }
+  .modal__actions .btn { flex: none; width: 100%; }
+}
+
+/* ---------- Top nav ---------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+}
+
+/* Over a hero photo the nav floats on the image rather than scrolling with
+   the page, and takes the same glass as the section panels. */
+body:has(.hero--brand) .nav {
+  position: fixed;
+  inset: 0 0 auto;
+  background: var(--color-glass-tint);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: var(--blur-glass);
+}
+
+.nav__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 1.5rem;
+  height: 72px;
+  padding-inline: var(--container-padding);
+}
+
+.nav__brand,
+.nav__crumbs { justify-self: start; }
+
+.nav__crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.nav__right {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav__crumb-sep {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text-subtle);
+  user-select: none;
+}
+
+.nav__crumb-current {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* Narrow viewports: the crumbs get squeezed against the hamburger, so drop
+   them and leave the brand readable. */
+@media (max-width: 480px) {
+  .nav__crumb-sep,
+  .nav__crumb-current { display: none; }
+}
+
+/* Two copies of the mark stacked in one grid cell, the hover state on top at
+   zero opacity. Because both files are the same artwork the swap lands
+   exactly over the resting state with no fade. Two files is the only way:
+   CSS cannot recolour the fills inside an <img>. */
+.nav__brand {
+  display: inline-grid;
+  align-items: center;
+}
+
+.nav__brand-logo {
+  grid-area: 1 / 1;
+  display: block;
+  /* Sized by height so the row stays put whatever the artwork's ratio. The
+     viewBox is cropped to the ink, so this is the glyph height exactly. */
+  height: clamp(21px, 2.75vw, 27.5px);
+  width: auto;
+}
+
+.nav__brand-logo--hover { opacity: 0; }
+.nav__brand:hover .nav__brand-logo--hover { opacity: 1; }
+
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav__link {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  padding: 0.5rem 0;
+}
+
+.nav__link:hover { color: var(--color-accent); }
+
+.nav__socials {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav__langs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav__lang {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  padding: 4px 6px;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.nav__lang:hover { color: var(--color-accent); }
+.nav__lang[aria-pressed="true"] { color: var(--color-accent); }
+
+.nav__lang-divider {
+  color: var(--color-text-subtle);
+  font-size: 14px;
+  user-select: none;
+}
+
+.nav__langs--drawer {
+  margin: 0.75rem 0 0;
+  padding: 0.5rem 0 0;
+}
+
+.nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.nav__toggle:hover { background: var(--color-surface-hover); }
+
+.nav__toggle .icon-bar,
+.nav__toggle .icon-bar::before,
+.nav__toggle .icon-bar::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text-strong);
+  border-radius: 2px;
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+.nav__toggle .icon-bar { position: relative; }
+
+.nav__toggle .icon-bar::before,
+.nav__toggle .icon-bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.nav__toggle .icon-bar::before { top: -7px; }
+.nav__toggle .icon-bar::after { top: 7px; }
+
+.nav[data-open="true"] .nav__toggle .icon-bar { background: transparent; }
+.nav[data-open="true"] .nav__toggle .icon-bar::before { transform: translateY(7px) rotate(45deg); }
+.nav[data-open="true"] .nav__toggle .icon-bar::after { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav__drawer {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem var(--container-padding) 1.5rem;
+  border-top: 1px solid var(--color-border);
+  background: rgb(10 10 10 / 95%);
+}
+
+.nav__drawer .nav__link {
+  padding: 0.875rem 0;
+  font-size: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav__drawer .nav__socials {
+  display: flex;
+  margin-top: 0.75rem;
+}
+
+.nav[data-open="true"] .nav__drawer { display: flex; }
+
+@media (min-width: 900px) {
+  .nav__links { display: flex; }
+  .nav__socials { display: flex; }
+  .nav__toggle { display: none; }
+  .nav__drawer { display: none !important; }
+}
+
+/* Below 900px the language switcher lives in the drawer, not the nav bar. */
+@media (max-width: 899px) {
+  .nav__right .nav__langs { display: none; }
+}
+
+@media (min-width: 768px) {
+  :root { --nav-height: 96px; }
+  .nav__inner { height: 96px; }
+  .contact__grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 4rem;
+  }
+}
+
+/* ---------- Social icons ---------- */
+
+/* Placeholders: the profile URLs do not exist yet, so these are not links.
+   They are spans rather than <a>s without href, so nothing presents itself
+   as focusable or activatable while it cannot do either. */
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-strong);
+  opacity: 0.5;
+}
+
+.social svg { width: 20px; height: 20px; }
+
+.socials-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------- Dialogs ---------- */
+
+.modal,
+.lightbox {
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 0;
+  background: var(--color-bg);
+  color: var(--color-cream);
+}
+
+.modal { width: 506px; }
+
+.modal::backdrop {
+  background: rgb(0 0 0 / 60%);
+  backdrop-filter: blur(6px);
+}
+
+.modal__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+  padding: 40px;
+}
+
+.modal__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal__title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--color-cream);
+}
+
+.modal__desc {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+@media (max-width: 540px) {
+  .modal__inner {
+    padding: 32px 20px;
+    gap: 28px;
+  }
+}
+
+/* ---------- Lightbox ---------- */
+
+.lightbox {
+  width: min(1100px, calc(100vw - 32px));
+  max-width: none;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background: rgb(0 0 0 / 85%);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox__inner {
+  display: grid;
+  /* minmax(0, 1fr) lets the stage row shrink below its min-content so the
+     thumbnail row always has room — otherwise a tall image stretches the
+     stage and pushes the thumbnails out of view. */
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: min(80vh, 720px);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgb(10 10 10 / 60%);
+  color: var(--color-cream);
+}
+
+.lightbox__close:hover { color: var(--color-accent); }
+.lightbox__close svg { width: 22px; height: 22px; }
+
+.lightbox__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  /* The caption gets its own row so it can never collide with the thumbnail
+     strip below. */
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 16px;
+  min-height: 0;
+}
+
+.lightbox__image {
+  grid-column: 2;
+  grid-row: 1;
+  max-height: 100%;
+  object-fit: contain;
+  background: var(--color-surface) url("../img/gallery/placeholder.svg") center / 96px no-repeat;
+}
+
+.lightbox__caption {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}
+
+.lightbox__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-cream);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.lightbox__nav:hover { color: var(--color-accent); }
+.lightbox__nav svg { width: 22px; height: 22px; }
+
+.lightbox__thumbs {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px 16px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.lightbox__thumb {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border: 2px solid transparent;
+  background: var(--color-surface) url("../img/gallery/placeholder.svg") center / 28px no-repeat;
+  opacity: 0.6;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.lightbox__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lightbox__thumb:hover { opacity: 0.85; }
+.lightbox__thumb[aria-current="true"] {
+  opacity: 1;
+  border-color: var(--color-accent);
+}
+
+@media (max-width: 720px) {
+  .lightbox__inner { height: min(85vh, 600px); }
+  .lightbox__image { max-height: calc(85vh - 200px); }
+  .lightbox__nav { width: 36px; height: 36px; }
+  .lightbox__thumb { width: 52px; height: 52px; }
+}
+
+/* ---------- Back to top ---------- */
+
+.back-to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: var(--z-nav);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.back-to-top[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover { background: var(--color-cream); }
+.back-to-top svg { width: 22px; height: 22px; }

@@ -1,4 +1,7 @@
-/* True Friends — Base reset & typography */
+/* True Friends — reset, element defaults, utilities.
+ * Everything that is not a component. */
+
+/* ---------- Reset ---------- */
 
 *,
 *::before,
@@ -21,32 +24,18 @@ body {
   min-height: 100vh;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: var(--fs-body);
   line-height: var(--lh-relaxed);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
-img, svg, video {
+img,
+svg {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-/* Icon sprite: the <defs> are only ever referenced by <use>, never drawn.
-   Zeroed here rather than with a style attribute, which the page CSP blocks —
-   `style-src` carries no 'unsafe-inline', so the attribute was dropped and the
-   sprite fell back to `display: block` and laid its symbols out as visible
-   content, opening a 150px band above the nav and pushing the whole page
-   down with it. The nav and hero padding have since taken over that space,
-   so nothing shifts when this finally collapses it. */
-.tf-svg-sprite {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
 }
 
 a {
@@ -65,48 +54,60 @@ button {
 }
 
 input,
-textarea,
-select {
+textarea {
   font: inherit;
   color: inherit;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-p {
+p,
+h1,
+h2 {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  font-family: var(--font-display);
+h1,
+h2 {
   font-weight: 800;
   line-height: var(--lh-snug);
   color: var(--color-text-strong);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 ::selection {
   background: var(--color-accent);
-  color: var(--color-accent-ink);
+  color: var(--color-bg);
 }
 
-/* Typography utilities */
+/* The icon sprite holds only <symbol> definitions, referenced by <use> and
+   never drawn. It must occupy no space: left as a laid-out <svg> it lays its
+   symbols out as visible content and opens a band above the nav. A style
+   attribute is not an option — the page CSP blocks inline styles. */
+.tf-svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Utilities ---------- */
+
 .lede {
-  font-family: var(--font-body);
   font-size: 24px;
+  font-weight: 700;
   line-height: var(--lh-snug);
   color: var(--color-text-strong);
-  font-weight: 700;
 }
 
 .accent {
@@ -125,8 +126,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 0;
 }
 
-/* Visually-hidden honeypot field for bot detection.
-   Real users can't see or focus it. Bots fill it; submission is silently dropped. */
+/* Honeypot: off-screen but a real field, so bots fill it and submissions
+   that do are dropped silently. */
 .honeypot {
   position: absolute;
   left: -9999px;
@@ -138,11 +139,9 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
 }
 
-/* Held back by js/lang-boot.js while a Swedish visitor's page is still
-   English in the markup. `visibility` rather than `display` so layout
-   resolves underneath and nothing reflows when it lifts — and the body
-   background still paints, so it reads as the page arriving, not a blank
-   screen. English visitors never get this attribute. */
+/* Held back by js/lang-boot.js until a Swedish visitor's markup is
+   translated. `visibility` rather than `display`, so nothing reflows when
+   it lifts and the background still paints. English visitors never get it. */
 html[data-tf-translating] body {
   visibility: hidden;
 }

@@ -19,14 +19,12 @@
 
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css?v=2">
-    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/site.css">
     <!-- Blocking on purpose: decides before first paint whether the
          English markup is about to be translated. See the file. -->
     <script src="js/lang-boot.js"></script>
 </head>
 <body>
-
 
 <svg class="tf-svg-sprite" aria-hidden="true">
   <defs>
@@ -42,9 +40,9 @@
         <div class="nav__crumbs">
             <a href="https://truefriends.se/" class="nav__brand" aria-label="True Friends home" data-i18n-aria-label="aria.home">
                 <img class="nav__brand-logo" src="img/studio-navbar-smiley-noborder.svg" alt=""
-                     width="1955" height="1491" decoding="async">
+                     width="297" height="298" decoding="async">
                 <img class="nav__brand-logo nav__brand-logo--hover" src="img/studio-navbar-smiley-back-noborder.svg" alt=""
-                     width="1955" height="1491" decoding="async" aria-hidden="true">
+                     width="298" height="298" decoding="async" aria-hidden="true">
             </a>
             <span class="nav__crumb-sep" aria-hidden="true">/</span>
             <span class="nav__crumb-current" data-i18n="hero.studio" aria-current="page">Studio</span>
@@ -60,17 +58,16 @@
 
         <div class="nav__right">
             <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
-                <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                <span class="social">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
-                </a>
-                <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                </span>
+                <span class="social">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
-                </a>
-                <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                </span>
+                <span class="social">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
-                </a>
+                </span>
             </div>
-
 
             <div class="nav__langs" role="group" aria-label="Switch language" data-i18n-aria-label="aria.langSwitch">
                 <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
@@ -90,21 +87,21 @@
         <a class="nav__link" href="#services" data-i18n="nav.services">Services</a>
         <a class="nav__link" href="#gallery" data-i18n="nav.gallery">Gallery</a>
         <a class="nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
-        <div class="nav__langs nav__langs--drawer" role="group" aria-label="Switch language">
+        <div class="nav__langs nav__langs--drawer" role="group" aria-label="Switch language" data-i18n-aria-label="aria.langSwitch">
             <button type="button" class="nav__lang" data-lang="en" aria-pressed="true">EN</button>
             <span class="nav__lang-divider" aria-hidden="true">/</span>
             <button type="button" class="nav__lang" data-lang="sv" aria-pressed="false">SV</button>
         </div>
         <div class="nav__socials" aria-label="Social links" data-i18n-aria-label="aria.socialLinks">
-            <a class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+            <span class="social">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
-            </a>
-            <a class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+            </span>
+            <span class="social">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
-            </a>
-            <a class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+            </span>
+            <span class="social">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
-            </a>
+            </span>
         </div>
     </div>
 </header>
@@ -117,13 +114,13 @@
 
         <div class="container hero__brand">
             <p class="hero__eyebrow">TRUE FRIENDS</p>
-            <h1 class="hero__mark hero__mark--section">
+            <h1 class="hero__mark">
                 <img src="img/tf-archivo-studio-yellow-transparent.svg"
                      alt="Studio" data-i18n-alt="hero.studio"
                      width="2030" height="484" decoding="async">
             </h1>
 
-            <p class="hero__lede" data-i18n="hero.lede.studio"></p>
+            <p class="hero__lede" data-i18n="hero.lede.studio">We offer services in web development, design, marketing, photo, video and editing.</p>
 
             <div class="hero__cta">
                 <button type="button" class="btn" data-modal-open="contact-modal" data-i18n="hero.cta">Say hi</button>
@@ -157,7 +154,7 @@
                 </div>
                 <div class="section__terminal-body">
                     <div class="section__body">
-                    <ul class="service-list" role="list">
+                    <ul class="service-list">
                         <li>
                             <details class="service-line">
                                 <summary class="service-line__summary">
@@ -231,7 +228,7 @@
                             </details>
                         </li>
                     </ul>
-                    <p class="services__note" data-i18n-html="services.note">Our media services are available to both businesses and private individuals. We also collaborate with various partners for larger and more complex projects.</p>
+                    <p class="services__note" data-i18n-html="services.note">Our media services are available to both businesses and private individuals.<br>We also collaborate with various partners for larger and more complex projects.</p>
                     </div>
                 </div>
             </div>
@@ -246,9 +243,9 @@
                 </div>
                 <div class="section__terminal-body">
                     <div class="section__body">
-                    <div class="gallery gallery-listing">
-                        <!-- Rows rendered from window.GALLERY_IMAGES (see js/main.js). -->
-                        <ol class="gallery-listing__rows gallery__grid" role="list"></ol>
+                    <div class="gallery-listing">
+                        <!-- Rows rendered by js/main.js from GALLERY_IMAGES. -->
+                        <ol class="gallery-listing__rows"></ol>
                     </div>
                     </div>
                 </div>
@@ -269,7 +266,7 @@
                     </div>
 
                     <div class="contact__grid">
-                        <form class="form" id="contact-form" novalidate
+                        <form class="form" novalidate
                               data-endpoint="https://formsubmit.co/ajax/hello@truefriends.se"
                               aria-describedby="form-status">
                             <div class="form__row">
@@ -300,16 +297,16 @@
                         </form>
 
                         <aside class="contact__side" aria-label="Other ways to reach us" data-i18n-aria-label="contact.otherWays">
-                            <div class="socials-row" role="list">
-                                <a role="listitem" class="social" data-href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn" aria-disabled="true">
+                            <div class="socials-row">
+                                <span class="social">
                                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-linkedin"/></svg>
-                                </a>
-                                <a role="listitem" class="social" data-href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" aria-disabled="true">
+                                </span>
+                                <span class="social">
                                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-instagram"/></svg>
-                                </a>
-                                <a role="listitem" class="social" data-href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" aria-disabled="true">
+                                </span>
+                                <span class="social">
                                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#icon-youtube"/></svg>
-                                </a>
+                                </span>
                             </div>
                             <address class="address-row">
                                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
@@ -352,7 +349,7 @@
             <p class="modal__desc" data-i18n="modal.desc">Please fill out the contact form and we will get back to you as soon as we can.</p>
         </div>
 
-        <form class="modal__form" id="modal-contact-form" novalidate
+        <form class="modal__form" novalidate
               data-endpoint="https://formsubmit.co/ajax/hello@truefriends.se"
               aria-describedby="modal-form-status">
             <div class="form__row">
@@ -392,22 +389,21 @@
         </button>
 
         <div class="lightbox__stage">
-            <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous" data-i18n-aria-label="aria.prevPhoto">
+            <button type="button" class="lightbox__nav" data-lightbox-prev aria-label="Previous" data-i18n-aria-label="aria.prevPhoto">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"/></svg>
             </button>
             <img class="lightbox__image" alt="">
-            <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next" data-i18n-aria-label="aria.nextPhoto">
+            <button type="button" class="lightbox__nav" data-lightbox-next aria-label="Next" data-i18n-aria-label="aria.nextPhoto">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
             </button>
             <p class="lightbox__caption" aria-live="polite"></p>
         </div>
 
-        <ol class="lightbox__thumbs" role="list" data-lightbox-thumbs></ol>
+        <ol class="lightbox__thumbs" data-lightbox-thumbs></ol>
     </div>
 </dialog>
 
-<script src="js/translations/common.js" defer></script>
-<script src="js/translations/studio.js" defer></script>
+<script src="js/translations.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

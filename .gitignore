@@ -1,17 +1,6 @@
-node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-.coverage/
-coverage/
-dist/
-build/
+# macOS and Windows drop these in every directory they visit.
 .DS_Store
-*.swp
-*.swo
-*~
-.vscode/
-.idea/
+Thumbs.db
 
 # Design references dropped in while working — not site assets.
 img/17*.jpg
