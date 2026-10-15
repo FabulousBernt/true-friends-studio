@@ -22,7 +22,7 @@ css/site.css          layout and components
 js/lang-boot.js       decides the language before first paint (blocking)
 js/translations.js    every string, English and Swedish
 js/main.js            language switching, nav, gallery, dialogs, forms
-img/                  favicon, hero photo, two navbar marks, page name
+img/                  favicon, hero photo, navbar mark, page name
 img/gallery/          42 photographs, plus thumbs/
 tools/check.mjs       everything checkable without a browser
 tools/build-gallery.sh  rebuilds thumbs/ and stamps copyright metadata
@@ -82,10 +82,30 @@ yellow smiley. Treating it as a silhouette destroys the screen and the face,
 and a CSS `filter: brightness(0)` turns it into a black blob; this has been
 tried.
 
-That is also why the navbar swaps between two image files on hover rather than
-recolouring one: CSS cannot recolour the fills inside an `<img>`, and masking
-the SVG does not work either because its root is `width="100%" height="100%"`
-and so carries no intrinsic size.
+That is why the navbar used to swap between two image files on hover rather
+than recolouring one: CSS cannot recolour the fills inside an `<img>`, and
+masking the SVG does not work either because its root is `width="100%"`
+`height="100%"` and so carries no intrinsic size. As of October 2026 there is
+one mark and the hover is an opacity fade — see the note below.
+
+## The chrome change
+
+`img/tf-smiley-chrome-transparent.webp` replaced the two SVG smileys, the same
+change the consulting navbar made. It is the landing's hero mark, so it is
+umbrella artwork: change it in all three repositories or in none.
+
+It is also the one mark on the site that is a bitmap. It arrived as a rendered
+cut with no vector source, which is why the two-drawing hover is gone: there is
+no second cut to swap to, and nothing to derive one from that would register
+against a rendered chrome ball. The hover is a fade on the one file.
+
+`img/tf-archivo-studio-chrome-transparent.svg` is the page name, still vector,
+with a chrome `linearGradient` painted into the glyphs in place of the flat
+yellow. That is a fill on a drawing, not a recolour of an `<img>`: the gradient
+is `defs` inside the file, so the three-colour warning above does not apply to
+it. The flame drop-shadow that used to sit behind the wordmark went with the
+yellow — a red offset behind metal that already has its own shading had nothing
+left to misregister against.
 
 ## History
 

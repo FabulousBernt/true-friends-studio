@@ -187,21 +187,22 @@ body:has(dialog[open]) { overflow: hidden; }
    is an <h1>, and an em offset would key off the inherited heading size
    rather than the artwork. */
 .hero__mark {
-  --mark-offset: clamp(2px, 0.4vw, 5px);
   margin: 0;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
+/* The wordmark is drawn artwork filled with a chrome gradient, so it carries
+   its own shading and needs no offset colour behind it. A single soft dark
+   drop-shadow keeps the letterforms off the hero photo where the metal's dark
+   band meets a dark patch of the image; it is not a second colour pass. */
 .hero__mark img {
   width: auto;
   height: clamp(2.25rem, 9vw, 7rem);
   max-width: 100%;
   object-fit: contain;
-  filter:
-    drop-shadow(var(--mark-offset) var(--mark-offset) 0 var(--color-flame))
-    drop-shadow(1px 1px 0 rgb(10 10 10 / 55%));
+  filter: drop-shadow(0 2px 6px rgba(10, 10, 10, 0.5));
 }
 
 .hero__lede {
@@ -597,26 +598,35 @@ body:has(.hero--brand) .nav {
   .nav__crumb-current { display: none; }
 }
 
-/* Two copies of the mark stacked in one grid cell, the hover state on top at
-   zero opacity. Because both files are the same artwork the swap lands
-   exactly over the resting state with no fade. Two files is the only way:
-   CSS cannot recolour the fills inside an <img>. */
 .nav__brand {
-  display: inline-grid;
+  display: inline-flex;
   align-items: center;
 }
 
+/* The chrome smiley, the same artwork the landing sets as its hero mark and the
+   consulting navbar sets beside its page name. One file, not two: it is a
+   rendered chrome ball with its own shading, and there is no second cut of it
+   to swap to.
+
+   Sized by height as the old square mark was. The sphere is 96% of the
+   artwork's height and it is the orbital rings that make the file 2.17:1, so
+   the same clamp holds the face at the size it was and only the box gets
+   wider. The viewBox is cropped to the ink, so this is the glyph height
+   exactly.
+
+   Hover is a plain opacity fade, matching the consulting navbar. It says the
+   same thing the old two-file swap said — that this is a link and it has
+   noticed the pointer — without a second drawing to keep in register.
+
+   --duration-fast is 0ms under prefers-reduced-motion. */
 .nav__brand-logo {
-  grid-area: 1 / 1;
   display: block;
-  /* Sized by height so the row stays put whatever the artwork's ratio. The
-     viewBox is cropped to the ink, so this is the glyph height exactly. */
   height: clamp(21px, 2.75vw, 27.5px);
   width: auto;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.nav__brand-logo--hover { opacity: 0; }
-.nav__brand:hover .nav__brand-logo--hover { opacity: 1; }
+.nav__brand:hover .nav__brand-logo { opacity: 0.72; }
 
 .nav__links {
   display: none;
